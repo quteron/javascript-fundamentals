@@ -136,6 +136,28 @@ console.log(result);
 
 ## Overloading <a name="overloading"></a>
 
+Unfortunately, in *Javascript* there is no function overlaoding in its traditional sense. In some other languages, e.g. *Java*, it's possible to declare two functions with the same name as long as they have different signatures (type and number of arguments). In *Javascript* as you know we cannot specify type of arguments - you can pass value of any type. Also you can pass few or more parameters to the functions. 
+
+It seems that we cannot apply term *signature* to functions here. So, what will happen if we will declare two functions with the same name and different number of arguments? Let's try:
+```javascript
+function sum(a, b, c) {
+  return a + b + c;
+}
+
+function sum(a, b) {
+  return a + b;
+}
+
+var result = sum(1, 2, 3);
+console.log(result);
+
+> 3
+```
+
+In *Javascript* the last declared function is finally associated with the specified function name, it's like the second declaration overwrites the first one. That is why be accurate in function declaration and don't use the same name twice!
+
+> It's possible to simulate function overloading by checking type and number of parameters that have been passed into a function. For more details, please, read [Advanced Javascript Tutorial]().
+
 ## Arguments <a name="arguments"></a>
 
 ## IIFE <a name="iife"></a>
