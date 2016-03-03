@@ -21,7 +21,7 @@ To declare a new function you need to:
 Here is an example:
 ```javascript
 function sayHello(username) {
-  console.log('Hello, ' + username + '.');
+  console.log("Hello, " + username + ".");
 }
 ```
 As you can see we have a function named **sayHello** that accept one parameter **username** and print greeting. Nothing complicated, is not it?
@@ -32,13 +32,13 @@ As you can see we have a function named **sayHello** that accept one parameter *
 
 To call the function just enter function name and input arguments in paretheneses saperated by commas. Don't forget to put semicolon at the end:
 ```javascript
-sayHello('John');
+sayHello("John");
 > Hello, John.
 ```
 
 But what will happen if we will forget to specify input argument and call function without it? Let's try:
 ```javascript
-sayHello('John');
+sayHello("John");
 > Hello, undefined.
 ```
 
@@ -46,7 +46,7 @@ As you can see in JavaScript it's not an error (in comparison with some other la
 
 Let's try now pass more arguments than we have parameters in the function declaration:
 ```javascript
-sayHello('John', 'Peter');
+sayHello("John", "Peter");
 > Hello, undefined.
 ```
 
@@ -125,7 +125,7 @@ You should see `undefined` in the console. Actually even if you won't specify an
 Try this:
 ```javascript
 function doNothing() {
-  console.log('I have no return statement but still return a value.');
+  console.log("I have no return statement but still return a value.");
 }
 var result = doNothing();
 console.log(result);
@@ -137,7 +137,7 @@ console.log(result);
 
 ## Overloading <a name="overloading"></a>
 
-Unfortunately, in *Javascript* there is no function overlaoding in its traditional sense. In some other languages, e.g. *Java*, it's possible to declare two functions with the same name as long as they have different signatures (type and number of parameters). In *Javascript* as you know we cannot specify type of parameter - you can pass value of any type. Also you can pass few or more arguments to the functions. 
+Unfortunately, in *Javascript* there is no function overlaoding in its traditional sense. In some other languages, e.g. *Java*, it's possible to declare two functions with the same name as long as they have different signatures (type and number of parameters). In *Javascript* as you know we cannot specify type of parameter - you can pass value of any type. Also you can pass less or more arguments to the functions. 
 
 It seems that we cannot apply term *signature* to functions here. So, what will happen if we will declare two functions with the same name and different number of parameters? Let's try:
 ```javascript
@@ -159,13 +159,36 @@ In *Javascript* the last declared function is finally associated with the specif
 
 > It's possible to simulate function overloading by checking type and number of parameters that have been passed into a function. For more details, please, read [Advanced Javascript Tutorial]().
 
-## Arguments <a name="arguments"></a>
+## Implicit parameter *arguments* <a name="arguments"></a>
+
+In addition to the declared parameters each function always has one more *implicit* parameter called **arguments**. This parameter represents an array of all arguments passed through function call. Here is an example:
+```javascript
+function guessMyName() {
+  console.log("Your name is " + arguments[0] + ".");
+}
+
+guessMyName("Peter");
+> Your name is Peter.
+```
+Thruthly saying it's not a fully-implemented array, you cannot use any methods that are declared in *Array* object. All what is available is iterating over it and getting its length:
+```javascript
+function printAllParameters() {
+  for(var i = 0; i < arguments.length; i++) {
+    console.log("Parameter #" + i + " contains value " + arguments[i] + ".");
+  }
+}
+
+printAllParameters("one", "two", "three");
+> Parameter #0 contains value one.
+> Parameter #0 contains value two.
+> Parameter #0 contains value three.
+```
 
 ## IIFE <a name="iife"></a>
 
 ## Strict mode <a name="strict-mode"></a>
 
-There are some limitations if you are using **strict mode**, compiler is just not so forgiven:
+There are several restrictions if you are using **strict mode**, compiler is just not so forgiven:
 
 * **No two named parameters can have the same name**
 
