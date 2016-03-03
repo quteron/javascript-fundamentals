@@ -4,18 +4,19 @@
 
 1. [Declaration](#declaration)
 2. [Calling function](#calling-function)
-3. [Return valuee](#return-value)
+3. [Return value](#return-value)
 4. [Overloading](#overloading)
 5. [Arguments](#arguments)
 6. [IIFE](#iife)
+6. [Strict mode](#strict-mode)
 
 ## Declaration <a name="declaration"></a>
 
 To declare a new function you need to:
-- specify **function** keyword
-- followed by the **name** of the function
-- specify list of arguments enclosed in parentheses and separated by commas
-- put statements enclosed in curly brackets, **{ }**.
+* specify **function** keyword
+* followed by the **name** of the function
+* specify list of arguments enclosed in parentheses and separated by commas
+* put statements enclosed in curly brackets, **{ }**.
 
 Here is an example:
 ```javascript
@@ -161,6 +162,26 @@ In *Javascript* the last declared function is finally associated with the specif
 ## Arguments <a name="arguments"></a>
 
 ## IIFE <a name="iife"></a>
+
+## Strict mode <a name="strict-mode"></a>
+
+There are some limitations if you are using **strict mode**, compiler is just not so forgiven:
+
+* **No two named parameters can have the same name**
+
+ Let's first try to call the following function without *strict mode*:
+ ```javascript
+function sum(a, a) {
+  return a + a;
+}
+
+var result = sum(1, 5);
+console.log(result);
+
+> 10
+ ```
+
+ As you can see the behaviour is very similar with the function duplicate declaration. If there are two or more parameters with the same name, the last parameter declaration overrides all previous ones. That is why we get `10` - `5 + 5` equals `10`.
 
 ## Function variable vs Function expression <a name="variable-vs-expression"></a>
 
