@@ -54,6 +54,23 @@ Once again there are no errors, extra argument is just ignored by the compiler. 
 
 And what about types? The situation is the same as with variable declaration, the type of the argument is calculated dynamically in runtime. So you can pass parameters of different types in each function call, all of them will be accepted. 
 
+Keep in mind that all arguments are passed by value in *Javascrip*. So if we will pass *Number* argument to the function and will try to update it value inside, we won't see updated value after returning from the function:
+```javascript
+function incrementByFive(a) {
+  console.log("Here is an input value - " + a + ".");
+  a += 5;
+  console.log("I have incremented it by five - " + a + ".");
+}
+
+var b = 10;
+incrementByFive(b);
+console.log("Here is an input value - " + b + ".");
+
+> Here is an input value - 10.
+> I have incremented it by five - 15.
+> Here is an input value - 10.
+```
+
 ## Return value <a name="return-value"></a>
 
 To return a value use **return** keyword followed with any value that you wish to return from the function. Let's define another function to sum up two numbers:
@@ -161,7 +178,9 @@ In *Javascript* the last declared function is finally associated with the specif
 
 ## Implicit parameter *arguments* <a name="arguments"></a>
 
-In addition to the declared parameters each function always has one more *implicit* parameter called **arguments**. This parameter represents an array of all arguments passed through function call. Here is an example:
+As we have learned *Javascript* does not care how many arguments do you specify in the fucntion call, it does complain for few or more values than function has arguments. Why does it happen? This happens because arguments are represented as an array internally. This array is always passed to the function as in input and function does not care what is in the array. It can be empty or not. This *implicit* parameter is called **arguments**.
+
+Here is an example:
 ```javascript
 function guessMyName() {
   console.log("Your name is " + arguments[0] + ".");
@@ -180,8 +199,24 @@ function printAllParameters() {
 
 printAllParameters("one", "two", "three");
 > Parameter #0 contains value one.
-> Parameter #0 contains value two.
-> Parameter #0 contains value three.
+  Parameter #0 contains value two.
+  Parameter #0 contains value three.
+```
+
+The *arguments* parameter can also be used in cojunction with named parameters, there is no restiction for this:
+```javascript
+function printUsername(username) {
+  console.log("Here is named parameter value - " + username + ".");
+  console.log("Here is 'arguments' array values:");
+  for(var i = 0; i < arguments.length; i++) {
+    console.log("Parameter #" + i + " contains value " + arguments[i] + ".");
+  }
+}
+
+printUsername("Grant");
+> Here is named parameter value - Grant.
+  Here is 'arguments' array values:
+  Parameter #0 contains value Grant.
 ```
 
 ## IIFE <a name="iife"></a>
