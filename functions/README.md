@@ -7,8 +7,9 @@
 3. [Return value](#return-value)
 4. [Overloading](#overloading)
 5. [Arguments](#arguments)
-6. [IIFE](#iife)
-6. [Strict mode](#strict-mode)
+6. [Function expression](#function-expression)
+7. [IIFE](#iife)
+8. [Strict mode](#strict-mode)
 
 ## Declaration <a name="declaration"></a>
 
@@ -30,7 +31,7 @@ As you can see we have a function named **sayHello** that accept one parameter *
 
 ## Calling function <a name="calling-function"></a>
 
-To call the function just enter function name and input arguments in paretheneses saperated by commas. Don't forget to put semicolon at the end:
+Function definition does not call function itself, it's only define set of instructions that will be run when the function is called. To call the function just enter function name and input arguments in paretheneses saperated by commas. Don't forget to put semicolon at the end:
 ```javascript
 sayHello("John");
 > Hello, John.
@@ -54,7 +55,7 @@ Once again there are no errors, extra argument is just ignored by the compiler. 
 
 And what about types? The situation is the same as with variable declaration, the type of the argument is calculated dynamically in runtime. So you can pass parameters of different types in each function call, all of them will be accepted. 
 
-Keep in mind that all arguments are passed by value in *Javascrip*. So if we will pass *Number* argument to the function and will try to update it value inside, we won't see updated value after returning from the function:
+Keep in mind that all arguments are passed by value in *Javascrip*. So if we pass primitive (e.g. *Number*) to the function and try to update it value inside, we won't see updated value outside after returning from the function:
 ```javascript
 function incrementByFive(a) {
   console.log("Here is an input value - " + a + ".");
@@ -64,15 +65,45 @@ function incrementByFive(a) {
 
 var b = 10;
 incrementByFive(b);
-console.log("Here is an input value - " + b + ".");
+console.log("Here is an updated value - " + b + ".");
 
 > Here is an input value - 10.
-> I have incremented it by five - 15.
-> Here is an input value - 10.
+ I have incremented it by five - 15.
+ Here is an updated value - 10.
 ```
+If we pass non-primitive argument (e.g. *Array*) to the function, we can update its properties and changes will be visible from outside:
+```javascript
+function addItem(a) {
+  console.log("Here is an input array - [" + a + "].");
+  a.push(5);
+  console.log("I have added one more item to the array - [" + a + "].");
+}
 
+var b = [1];
+addItem(b);
+console.log("Here is an updated array - [" + b + "].");
+
+> Here is an input array - [1].
+  I have added one more item to the array - [1,5].
+  Here is an updated array - [1,5].
+```
+But we cannot update reference to the object itself - e.g. create a new object:
+```javascript
+function recreate(a) {
+  console.log("Here is an input array - [" + a + "].");
+  a = [2,3];
+  console.log("I have recreated array with new items - [" + a + "].");
+}
+
+var b = [1];
+recreate(b);
+console.log("Here is an updated array - [" + b + "].");
+
+> Here is an input array - [1].
+  I have recreated array with new items - [2,3].
+  Here is an updated array - [1].
+```
 ## Return value <a name="return-value"></a>
-
 To return a value use **return** keyword followed with any value that you wish to return from the function. Let's define another function to sum up two numbers:
 ```javascript
 function add(a, b) {
@@ -218,6 +249,37 @@ printUsername("Grant");
   Here is 'arguments' array values:
   Parameter #0 contains value Grant.
 ```
+## Function expression <a name="function-expression"></a>
+How we have declared functions before is called *function declaration* (also called *function definition* or *function statement*). But it's not the only way to create a new function. Functions can also be created by a **function expression**. Such a function can even be **anonymous** - it does not have to have a name.
+Here is a simple example:
+```javascript
+var add = function(a, b) {
+  return a + b;
+};
+
+var sum = add(3,4);
+console.log(sum);
+> 7
+```
+> Do not forget to put semicolon at the end of function expression. In general, here we initialize a variable named *sum* with *function declaration*, so it's a simple variable assignment statement.
+
+As you can see here we define a function without specifying your name and save this definition to the variable named **add**. Then we can use this variable like an usual function - just put input arguments in paretheneses to call the function.
+
+It's usually a good habbit to specify a name for such functions too (even you are not restricted to do this). The first reason for this is the need to use recursion. As anonymous function does not have a name, you loose possibility to call such function inside itself. By specifying a name - you return the possiblity back.
+Here is an example:
+```javascript
+var pow = function pow(b, e) {
+  if(e === 0) {
+    return 1;
+  }
+  return b * pow(b, e - 1);
+};
+
+var r = pow(2, 4);
+console.log(r);
+> 16
+```
+> We cannot use variable name to call declared function inside as it's not visible in the current scope, for more details about scope, please, reference *Advanced Javascript*.
 
 ## IIFE <a name="iife"></a>
 
@@ -240,8 +302,6 @@ console.log(result);
  ```
 
  As you can see the behaviour is very similar with the function duplicate declaration. If there are two or more parameters with the same name, the last parameter declaration overrides all previous ones. That is why we get `10` - `5 + 5` equals `10`.
-
-## Function variable vs Function expression <a name="variable-vs-expression"></a>
 
 
 
