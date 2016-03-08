@@ -1,4 +1,4 @@
-# Statements
+# Overview
 
 *Javascript* supports numerous number of different statements. Most all of them have very similar syntax to other programming languages and work pretty similar too.
 
@@ -21,7 +21,12 @@ console.log("You do not need to end each statement by semicolon.")
 
 Other situation when you wish to put multiple statements on one line. In this case you cannot omit semicolon, it will be the only sign for *Javascipt* to distinguish different statements from each other:
 ```javascript
-console.log("First statement."); console.log("Second statement.");
+console.log("First statement.") console.log("Second statement.")
+> Uncaught SyntaxError: Unexpected identifier(…)
+```
+Let's fix this code by adding semicolon at the end of the first statement:
+```javascript
+console.log("First statement."); console.log("Second statement.")
 > First statement.
   Second statement.
 ```
@@ -40,9 +45,9 @@ function sum(a, b) {
 console.log(sum(2, 3));  
 > undefined
 ```
-This happens because *Javascript* is so forgiven and is trying to fix user input errors. As it parses code line by line - it first finds single `return` keyword without semicolon at the end. For *Javascipt* it's a valid statement, it just adds semicolon at the end, executes this statement and proceed with the next line of code. As a result we see `undefined` in console instead of `5`.
+This happens because *Javascript* is so forgiven and is trying to fix user input errors. As it reads code line by line - it first finds single `return` keyword without semicolon at the end. For *Javascipt* it's a valid statement, it just adds semicolon at the end (considering that user has forgot to do this!), executes this statement and proceeds with the next line of code. As a result we see `undefined` in console instead of `5`.
 
-> It's considered the best practice to always put each statement of a single line and end it with semicolon.
+> It's considered the best practice to always put each statement of a single line and end it with a semicolon.
 
 ## Block statement <a name="block-statement"></a>
 You can also group several statements in a **block statement** by inclosing set of instructions in curly braces, **{ }**:
@@ -54,7 +59,7 @@ You can also group several statements in a **block statement** by inclosing set 
 > This is a block.
   of several statement.
 ```
-THe *Block statement* can even have a zero number of statements, it's a valid statement too:
+The *Block statement* can even have a zero number of statements, it's a valid statement too:
 ```javascript
 {
 }
@@ -73,9 +78,16 @@ else
   console.log("5 equals 5");
 > 5 equals 5
 ```
-Note, it's always a good idea to comment intentional usage of *empty statement* to make it more obvious. Sometimes it's not so obvious to distinguish this stamement from semicolon ending another statement:
+Note, it's always a good idea to comment intentional usage of *empty statement* to make it more obvious. Sometimes it's not so obvious to distinguish this stamement from semicolon that ends another statement:
 ```javascipt
 if(5 != 5) ;
   console.log("5 equals 5");
 > 5 equals 5
 ```
+As you can see by adding comment it bacame more obvious what we are trying to implement there:
+```javascipt
+if(5 != 5) /* do nothing */ ; 
+  console.log("5 equals 5");
+> 5 equals 5
+```
+> I greed that it's a somehow a non-realistic example that can even seem to be stupid. But from the other hand it's more clear to explain something on simple examples rather than typing a lot of lines of code where user can be lost in a minute.
