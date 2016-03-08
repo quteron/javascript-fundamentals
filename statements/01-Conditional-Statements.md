@@ -109,10 +109,9 @@ Any other values are considered to be **truthy** values. Be accurate with `Boole
 var b = new Boolean(false);
 if(b) console.log("new Boolean(false) is not a 'falsy' value.");
 
-As you can see `new Boolean(false)` is evaluated to *truthy* value. Why does it happen? Any instance on any object type is considered to be *truthy*, even if it's a `Boolean` type. 
-
 > "new Boolean(false) is not a 'falsy' value."
 ```
+As you can see `new Boolean(false)` is evaluated to *truthy* value. Why does it happen? Any instance on any object type is considered to be *truthy*, even if it's a `Boolean` type. 
 
 Let's now take a look at different assignment statements on `condition` place:
 ```javascript
